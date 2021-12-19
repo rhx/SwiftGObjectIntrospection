@@ -19,7 +19,7 @@ let package = Package(
             ]),
         .target(
             name: "GObjectIntrospection",
-            dependencies: ["CGObjectIntrospection", "GLibObject"],
+            dependencies: ["CGObjectIntrospection"],
             swiftSettings: [.unsafeFlags(["-Xfrontend", "-serialize-debugging-options"], .when(configuration: .debug))]
         ),
         .testTarget(
