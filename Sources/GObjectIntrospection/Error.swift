@@ -9,6 +9,10 @@ import CGObjectIntrospection
 public typealias GIError = UnsafeMutablePointer<GError>
 
 extension GIError: Error {}
+extension GIError: CustomStringConvertible {
+    /// Return the description of the error
+    public var description: String { String(cString: pointee.message) }
+}
 
 @usableFromInline
 var unknownError: GIError = {
