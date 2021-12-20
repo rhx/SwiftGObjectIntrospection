@@ -125,9 +125,6 @@ public class BaseInfo: CustomStringConvertible, Equatable {
     }
 }
 
-// Subclass containing enum information
-public class EnumInfo: BaseInfo {}
-
 // Subclass containing flags information
 public class FlagsInfo: EnumInfo {}
 
