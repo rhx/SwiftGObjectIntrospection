@@ -131,9 +131,6 @@ public class EnumInfo: BaseInfo {}
 // Subclass containing flags information
 public class FlagsInfo: EnumInfo {}
 
-// Subclass containing function information
-public class FunctionInfo: BaseInfo {}
-
 // Subclass containing callback information
 public class CallbackInfo: FunctionInfo {}
 
@@ -169,9 +166,6 @@ public class PropertyInfo: BaseInfo {}
 
 // Subclass containing field information
 public class FieldInfo: BaseInfo {}
-
-// Subclass containing function argument information
-public class ArgInfo: BaseInfo {}
 
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
