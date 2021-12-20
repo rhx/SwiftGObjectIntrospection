@@ -89,7 +89,7 @@ public extension Transfer {
     static let everything = GI_TRANSFER_EVERYTHING
 }
 
-// Subclass containing function argument information
+/// Subclass of `BaseInfo` containing function argument information
 public class ArgInfo: BaseInfo {
     // Index of the user data argument for a closure
     @inlinable public var closureIndex: Int? {

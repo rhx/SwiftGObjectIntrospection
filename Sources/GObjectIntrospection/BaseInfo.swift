@@ -158,15 +158,6 @@ public class ValueInfo: BaseInfo {}
 // Subclass containing signal information
 public class SignalInfo: BaseInfo {}
 
-// Subclass containing virtual function information
-public class VFuncInfo: BaseInfo {}
-
-// Subclass containing property information
-public class PropertyInfo: BaseInfo {}
-
-// Subclass containing field information
-public class FieldInfo: BaseInfo {}
-
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
 

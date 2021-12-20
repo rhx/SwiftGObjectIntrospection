@@ -7,21 +7,21 @@
 import CGObjectIntrospection
 
 public typealias FunctionInfoFlags = GIFunctionInfoFlags
-
+extension FunctionInfoFlags: OptionSet {}
 public extension FunctionInfoFlags {
     /// Return `true` iff this function is a method
-    @inlinable var isMethod: Bool { self == .method }
+    @inlinable var isMethod: Bool { self.contains(.method) }
     /// Return `true` iff this function is a constructor
     /// (i.e. a function with a `self` parameter)
-    @inlinable var isConstructor: Bool { self == .constructor }
+    @inlinable var isConstructor: Bool { self.contains(.constructor) }
     /// Return `true` iff this function is a getter
-    @inlinable var isGetter: Bool { self == .getter }
+    @inlinable var isGetter: Bool { self.contains(.getter) }
     /// Return `true` iff this function is a setter
-    @inlinable var isSetter: Bool { self == .setter }
+    @inlinable var isSetter: Bool { self.contains(.setter) }
     /// Return `true` iff this function wraps a virtual function
-    @inlinable var isVirtual: Bool { self == .virtual }
+    @inlinable var isVirtual: Bool { self.contains(.virtual) }
     /// Return `true` iff this function can throw
-    @inlinable var canThrow: Bool { self == .throws }
+    @inlinable var canThrow: Bool { self.contains(.throws) }
 
     /// This function is a method
     static let method = GI_FUNCTION_IS_METHOD
@@ -40,7 +40,7 @@ public extension FunctionInfoFlags {
     static let `throws` = GI_FUNCTION_THROWS
 }
 
-// Subclass containing function information
+/// Subclass of `BaseInfo`  containing function information
 public class FunctionInfo: BaseInfo {
     /// Return the flags for the receiver
     @inlinable public var flags: FunctionInfoFlags {
@@ -71,6 +71,10 @@ public class FunctionInfo: BaseInfo {
     /// so the library or shared object containing the described function
     /// must be either linked to the caller or must have been `g_module_symbol()`ed
     /// before calling this function.
+    /// - Parameters:
+    ///   - inputs: Array of input arguments
+    ///   - outputs: Array of output arguments
+    ///   - returnValue: Location for the return value of the function
     @inlinable public func invoke(withInputs inputs: [GIArgument] = [], outputs: [GIArgument] = [], returnValue: inout GIArgument) throws {
         var error: GIError?
         var rv = returnValue
@@ -85,6 +89,9 @@ public class FunctionInfo: BaseInfo {
     /// so the library or shared object containing the described function
     /// must be either linked to the caller or must have been `g_module_symbol()`ed
     /// before calling this function.
+    /// - Parameters:
+    ///   - inputs: Array of input arguments
+    ///   - outputs: Array of output arguments
     @inlinable public func invoke(withInputs inputs: [GIArgument] = [], outputs: [GIArgument] = []) throws {
         var error: GIError?
         guard g_function_info_invoke(baseInfo, inputs, CInt(inputs.count), outputs, CInt(outputs.count), nil, &error) != 0 else {

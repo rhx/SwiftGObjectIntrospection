@@ -20,3 +20,6 @@ var unknownError: GIError = {
     g_set_error_literal(&error, g_quark_from_static_string("Unknown"), 0, "Unkown Error")
     return error
 }()
+
+extension GInvokeError: Error {}
+
