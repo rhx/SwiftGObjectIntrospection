@@ -78,6 +78,10 @@ public class BaseInfo: CustomStringConvertible, Equatable {
         g_base_info_ref(baseInfo)
     }
 
+    deinit {
+        g_base_info_unref(baseInfo)
+    }
+
     /// Return the value of the given attribute
     @inlinable public subscript(attribute: String) -> String? {
         g_base_info_get_attribute(baseInfo, attribute).map(String.init(cString:))
@@ -93,14 +97,84 @@ public class BaseInfo: CustomStringConvertible, Equatable {
     @inlinable public static func == (lhs: BaseInfo, rhs: BaseInfo) -> Bool {
         g_base_info_equal(lhs.baseInfo, rhs.baseInfo) != 0
     }
-
-    deinit {
-        g_base_info_unref(baseInfo)
+    
+    /// Create the relevant typed subclass for the given pointer
+    /// - Parameter ptr: Pointer to the underlying info structure
+    /// - Returns: a typed `BaseInfo` subclass, referencing the underlying info
+    @inlinable public static func typedInfo(for ptr: UnsafeMutablePointer<GIBaseInfo>) -> BaseInfo {
+        switch g_base_info_get_type(ptr) {
+        case .callback: return CallbackInfo(ptr)
+        case .function: return FunctionInfo(ptr)
+        case .struct: return StructInfo(ptr)
+        case .boxed: return BoxedInfo(ptr)
+        case .enum: return EnumInfo(ptr)
+        case .flags: return FlagsInfo(ptr)
+        case .object: return ObjectInfo(ptr)
+        case .interface: return InterfaceInfo(ptr)
+        case .constant: return ConstantInfo(ptr)
+        case .union: return UnionInfo(ptr)
+        case .value: return ValueInfo(ptr)
+        case .signal: return SignalInfo(ptr)
+        case .vfunc: return VFuncInfo(ptr)
+        case .property: return PropertyInfo(ptr)
+        case .field: return FieldInfo(ptr)
+        case .arg: return ArgInfo(ptr)
+        case .type: return TypeInfo(ptr)
+        default: return UnresolvedInfo(ptr)
+        }
     }
 }
 
 // Subclass containing enum information
-public class EnumInfo: BaseInfo {
-    @usableFromInline
-    var enumInfo: UnsafeMutablePointer<GIEnumInfo> { baseInfo }
-}
+public class EnumInfo: BaseInfo {}
+
+// Subclass containing flags information
+public class FlagsInfo: EnumInfo {}
+
+// Subclass containing function information
+public class FunctionInfo: BaseInfo {}
+
+// Subclass containing callback information
+public class CallbackInfo: FunctionInfo {}
+
+// Subclass containing boxed information
+public class BoxedInfo: BaseInfo {}
+
+// Subclass containing struct information
+public class StructInfo: BoxedInfo {}
+
+// Subclass containing union information
+public class UnionInfo: BoxedInfo {}
+
+// Subclass containing object information
+public class ObjectInfo: BaseInfo {}
+
+// Subclass containing interface information
+public class InterfaceInfo: BaseInfo {}
+
+// Subclass containing constant information
+public class ConstantInfo: BaseInfo {}
+
+// Subclass containing value information
+public class ValueInfo: BaseInfo {}
+
+// Subclass containing signal information
+public class SignalInfo: BaseInfo {}
+
+// Subclass containing virtual function information
+public class VFuncInfo: BaseInfo {}
+
+// Subclass containing property information
+public class PropertyInfo: BaseInfo {}
+
+// Subclass containing field information
+public class FieldInfo: BaseInfo {}
+
+// Subclass containing function argument information
+public class ArgInfo: BaseInfo {}
+
+// Subclass containing type information
+public class TypeInfo: BaseInfo {}
+
+// Subclass containing unresolved information
+public class UnresolvedInfo: BaseInfo {}

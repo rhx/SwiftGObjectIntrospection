@@ -44,7 +44,7 @@ public struct Repository {
     /// - Returns: A `BaseInfo` representing metadata about `name` , or `nil`.
     @inlinable
     public func find(name: String, inNamespace namespace: String) -> BaseInfo? {
-        g_irepository_find_by_name(repository, namespace, name).map { BaseInfo($0) }
+        g_irepository_find_by_name(repository, namespace, name).map(BaseInfo.typedInfo)
     }
 
     /// Searches all loaded namespaces for a particular GType.
@@ -62,7 +62,7 @@ public struct Repository {
     /// - Returns: A `BaseInfo` representing metadata about `name` , or `nil`.
     @inlinable
     public func find(gType: GType) -> BaseInfo? {
-        g_irepository_find_by_gtype(repository, gType).map { BaseInfo($0) }
+        g_irepository_find_by_gtype(repository, gType).map(BaseInfo.typedInfo)
     }
 
     /// Searches all loaded namespaces for a particular GType.
@@ -141,7 +141,7 @@ public struct Repository {
     /// - Returns: A `BaseInfo` representing metadata at `index` or nil
     @inlinable
     public func getInfo(forNamespace namespace: String, atIndex index: Int) -> BaseInfo! {
-        g_irepository_get_info(repository, namespace, gint(index)).map { BaseInfo($0) }
+        g_irepository_get_info(repository, namespace, gint(index)).map(BaseInfo.typedInfo)
     }
 
     /// This function returns all metadata entries in the given namespace.
