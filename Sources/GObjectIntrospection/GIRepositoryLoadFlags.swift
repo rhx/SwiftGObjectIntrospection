@@ -5,9 +5,15 @@
 //
 import CGObjectIntrospection
 
-public extension GIRepositoryLoadFlags {
+public typealias RepositoryLoadFlags = GIRepositoryLoadFlags
+
+extension RepositoryLoadFlags: OptionSet {}
+
+public extension RepositoryLoadFlags {
+    /// Return whether the repository is loaded lazily
+    @inlinable var isLazy: Bool { self.contains(.lazy) }
     /// No flags
-    static let none = GIRepositoryLoadFlags(rawValue: 0)
+    static let none: RepositoryLoadFlags = []
     /// Load the repository lazily
     static let lazy = G_IREPOSITORY_LOAD_FLAG_LAZY
 }

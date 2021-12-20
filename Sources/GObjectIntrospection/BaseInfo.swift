@@ -155,9 +155,6 @@ public class ConstantInfo: BaseInfo {}
 // Subclass containing value information
 public class ValueInfo: BaseInfo {}
 
-// Subclass containing signal information
-public class SignalInfo: BaseInfo {}
-
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
 

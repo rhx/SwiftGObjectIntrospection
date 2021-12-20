@@ -7,7 +7,9 @@
 import CGObjectIntrospection
 
 public typealias FunctionInfoFlags = GIFunctionInfoFlags
+
 extension FunctionInfoFlags: OptionSet {}
+
 public extension FunctionInfoFlags {
     /// Return `true` iff this function is a method
     @inlinable var isMethod: Bool { self.contains(.method) }
@@ -22,7 +24,8 @@ public extension FunctionInfoFlags {
     @inlinable var isVirtual: Bool { self.contains(.virtual) }
     /// Return `true` iff this function can throw
     @inlinable var canThrow: Bool { self.contains(.throws) }
-
+    /// No flags
+    static let none: FunctionInfoFlags = []
     /// This function is a method
     static let method = GI_FUNCTION_IS_METHOD
     /// This function is a constructor
