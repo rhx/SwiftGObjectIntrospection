@@ -134,9 +134,6 @@ public class CallbackInfo: FunctionInfo {}
 // Subclass containing boxed information
 public class BoxedInfo: BaseInfo {}
 
-// Subclass containing struct information
-public class StructInfo: BoxedInfo {}
-
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
 
