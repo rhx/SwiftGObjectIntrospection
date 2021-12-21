@@ -106,7 +106,7 @@ public class BaseInfo: CustomStringConvertible, Equatable {
         case .callback: return CallbackInfo(ptr)
         case .function: return FunctionInfo(ptr)
         case .struct: return StructInfo(ptr)
-        case .boxed: return BoxedInfo(ptr)
+        case .boxed: return RegisteredTypeInfo(ptr)
         case .enum: return EnumInfo(ptr)
         case .flags: return FlagsInfo(ptr)
         case .object: return ObjectInfo(ptr)
@@ -130,12 +130,6 @@ public class FlagsInfo: EnumInfo {}
 
 // Subclass containing callback information
 public class CallbackInfo: FunctionInfo {}
-
-// Subclass containing boxed information
-public class BoxedInfo: BaseInfo {}
-
-// Subclass containing type information
-public class TypeInfo: BaseInfo {}
 
 // Subclass containing unresolved information
 public class UnresolvedInfo: BaseInfo {}
