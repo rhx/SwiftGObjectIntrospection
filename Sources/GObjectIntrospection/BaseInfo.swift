@@ -78,6 +78,11 @@ public class BaseInfo: CustomStringConvertible, Equatable {
         g_base_info_ref(baseInfo)
     }
 
+    /// Create a new BaseInfo
+    @inlinable public init(type: InfoType, container: BaseInfo! = nil, typeLib: Typelib! = nil, offset: Int) {
+        baseInfo = g_info_new(type, container?.baseInfo, typeLib?.typelib, guint32(offset))
+    }
+
     deinit {
         g_base_info_unref(baseInfo)
     }
