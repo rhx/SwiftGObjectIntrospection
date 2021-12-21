@@ -140,9 +140,6 @@ public class StructInfo: BoxedInfo {}
 // Subclass containing object information
 public class ObjectInfo: BaseInfo {}
 
-// Subclass containing interface information
-public class InterfaceInfo: BaseInfo {}
-
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
 

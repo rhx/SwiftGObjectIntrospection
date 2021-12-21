@@ -57,7 +57,7 @@ public extension TypeTag {
 
 // Subclass of `RegisteredTypeInfo` containing enum information
 public class EnumInfo: RegisteredTypeInfo {
-    /// Enumeration Value  Collection  type
+    /// Enumeration Value Collection type
     public struct Values: RandomAccessCollection {
         @usableFromInline var enumInfo: EnumInfo
         public let startIndex = 0
@@ -66,7 +66,7 @@ public class EnumInfo: RegisteredTypeInfo {
         /// Return the value at the given index
         @inlinable public subscript(position: Int) -> ValueInfo { enumInfo.value(at: position)! }
     }
-    /// Method enumeration Collection  type
+    /// Method enumeration Collection type
     public struct Methods: RandomAccessCollection {
         @usableFromInline var enumInfo: EnumInfo
         public let startIndex = 0
