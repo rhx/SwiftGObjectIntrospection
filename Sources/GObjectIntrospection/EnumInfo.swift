@@ -78,12 +78,16 @@ public class EnumInfo: RegisteredTypeInfo {
     /// Return the number of cases this enumeration contains.
     @inlinable public var valueCount: Int { Int(g_enum_info_get_n_values(baseInfo)) }
     /// Return the value at the given index
+    /// - Parameter index: The index of the value to return.
+    /// - Returns: The `ValueInfo` associated with the value at the given index, or `nil`.
     @inlinable public func value(at index: Int) -> ValueInfo? { g_enum_info_get_value(baseInfo, gint(index)).map { ValueInfo($0) } }
     /// Return the enumeration values as a `RandomAccessCollection`.
     @inlinable public var values: Values { Values(self) }
     /// Return the number of methods this enum type has.
     @inlinable public var methodCount: Int { Int(g_enum_info_get_n_methods(baseInfo)) }
     /// Return the method at the given index
+    /// - Parameter index: The index of the method to return.
+    /// - Returns: The `FunctionInfo` associated with the method at the given index, or `nil`.
     @inlinable public func method(at index: Int) -> FunctionInfo? { g_enum_info_get_method(baseInfo, gint(index)).map { FunctionInfo($0) } }
     /// Return the methods associated with this enumeration as a `RandomAccessCollection`.
     @inlinable public var methods: Methods { Methods(self) }

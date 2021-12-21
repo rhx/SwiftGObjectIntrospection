@@ -137,9 +137,6 @@ public class BoxedInfo: BaseInfo {}
 // Subclass containing struct information
 public class StructInfo: BoxedInfo {}
 
-// Subclass containing union information
-public class UnionInfo: BoxedInfo {}
-
 // Subclass containing object information
 public class ObjectInfo: BaseInfo {}
 
@@ -148,9 +145,6 @@ public class InterfaceInfo: BaseInfo {}
 
 // Subclass containing constant information
 public class ConstantInfo: BaseInfo {}
-
-// Subclass containing value information
-public class ValueInfo: BaseInfo {}
 
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
