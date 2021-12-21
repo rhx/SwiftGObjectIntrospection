@@ -143,9 +143,6 @@ public class ObjectInfo: BaseInfo {}
 // Subclass containing interface information
 public class InterfaceInfo: BaseInfo {}
 
-// Subclass containing constant information
-public class ConstantInfo: BaseInfo {}
-
 // Subclass containing type information
 public class TypeInfo: BaseInfo {}
 
