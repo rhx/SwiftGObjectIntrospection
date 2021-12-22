@@ -20,7 +20,9 @@ final class GObjectIntrospectionTests: XCTestCase {
 
     func testInfosPerformance() {
         measure {
-            _ = repository.getInfos(forNamespace: glib)
+            for _ in 0..<10000 {
+                _ = repository.getInfos(forNamespace: glib)
+            }
         }
     }
 }
