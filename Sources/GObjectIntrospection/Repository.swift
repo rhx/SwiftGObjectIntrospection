@@ -2,6 +2,21 @@ import CGObjectIntrospection
 
 /// Handle for a GIRepository
 public struct Repository {
+    /// BaseInfo Collection type
+    public struct Infos: RandomAccessCollection {
+        @usableFromInline var repository: Repository
+        @usableFromInline var namespace: String
+        public let startIndex = 0
+        public let endIndex: Int
+        @usableFromInline init(_ repository: Repository, _ namespace: String) {
+            self.repository = repository
+            self.namespace = namespace
+            endIndex = repository.getNumberOfInfos(forNamespace: namespace)
+        }
+        /// Return the value at the given index
+        @inlinable public subscript(position: Int) -> BaseInfo { repository.getInfo(forNamespace: namespace, atIndex: position)! }
+    }
+
     /// The default repository
     @inlinable
     public static var `default`: Repository { Repository(g_irepository_get_default()) }
@@ -12,7 +27,7 @@ public struct Repository {
     /// Pointer to the underlying GIRepository
     @usableFromInline
     let repository: UnsafeMutablePointer<GIRepository>
-    
+
     /// Return the list of currently loaded namespaces.
     public var loadedNamespaces: [String] {
         guard let result = g_irepository_get_loaded_namespaces(repository) else { return [] }
@@ -87,6 +102,7 @@ public struct Repository {
     ///
     /// Returned strings are of the form `namespace-version.`
     /// - Note: The namespace must have already been loaded using a method such as `require()` before calling this method.
+    /// - Note: To get only the immediate dependencies for `namespace` , use `getImmediateDependencies(forNamespace:)` instead.
     /// - Parameter namespace: The name space to look up
     /// - Returns: An array containing the name of the dependencies for the name space
     public func getDependencies(forNamespace namespace: String) -> [String] {
@@ -151,16 +167,9 @@ public struct Repository {
     /// - Parameters:
     ///   - namespace: The namespace to get the version for
     ///   - index: 0-based offset into namespace metadata
-    /// - Returns: A `BaseInfo` representing metadata at `index` or nil
-    public func getInfos(forNamespace namespace: String) -> [BaseInfo] {
-        let n = getNumberOfInfos(forNamespace: namespace)
-        var infos = [BaseInfo]()
-        infos.reserveCapacity(n)
-        for i in 0..<n {
-            guard let info = getInfo(forNamespace: namespace, atIndex: i) else { continue }
-            infos.append(info)
-        }
-        return infos
+    /// - Returns: A collection of `BaseInfo` subclasses representing the information for the relevant namespace
+    public func getInfos(forNamespace namespace: String) -> Infos {
+        return Infos(self, namespace)
     }
 
     /// Return the loaded version associated with the given namespace.
